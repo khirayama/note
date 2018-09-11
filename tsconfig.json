@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "allowJs": false,
+    "jsx": "react",
+    "sourceMap": true,
+    "removeComments": true,
+    "strict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "noImplicitThis": false,
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": false,
+    "alwaysStrict": true,
+    "module": "commonjs",
+    "target": "es2015"
+  }
+}

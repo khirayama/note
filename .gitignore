@@ -1,0 +1,10 @@
+.DS_Store
+
+/package-lock.json
+/node_modules
+/npm-debug.log
+/.envrc
+
+/dist
+/tmp.js
+/tmp.js.map
