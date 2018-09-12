@@ -1,7 +1,7 @@
 // tslint:disable:no-any
 import * as React from 'react';
 
-import { IRoute, Router } from 'router/Router';
+import { IMatchedRoute, IRoute, Router } from 'router/Router';
 
 export const context: any = React.createContext(null);
 
@@ -9,12 +9,7 @@ interface INavigatorProps {
   props?: any;
   router: Router;
   path: string;
-  onTransition?: any;
-}
-
-export interface ITransitionEvent {
-  route: IRoute;
-  params: { [key: string]: string };
+  onTransition?(matchedRoute: IMatchedRoute): any;
 }
 
 export class Navigator extends React.Component<INavigatorProps, { path: string }> {
@@ -29,13 +24,12 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       window.addEventListener('popstate', () => {
         const { router } = this.props;
         const path: string = window.location.pathname;
-        const result: ITransitionEvent | null = router.matchRoute(path);
-        if (result !== null) {
-          const route: IRoute = result.route;
-          window.document.title = route.title;
+        const matchedRoute: IMatchedRoute | null = router.matchRoute(path);
+        if (matchedRoute !== null) {
+          window.document.title = matchedRoute.title;
           this.setState({ path });
           if (this.props.onTransition) {
-            this.props.onTransition(result);
+            this.props.onTransition(matchedRoute);
           }
         }
       });
@@ -51,12 +45,11 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       pathname = pathname.split('?')[0];
     }
 
-    const result: ITransitionEvent | null = router.matchRoute(pathname);
-    if (result !== null) {
-      const route: IRoute = result.route;
-      const params: { [key: string]: string } = result.params || {};
+    const matchedRoute: IMatchedRoute | null = router.matchRoute(pathname);
+    if (matchedRoute !== null) {
+      const params: { [key: string]: string } = matchedRoute.params || {};
       const component: string | React.ComponentClass | React.StatelessComponent =
-        route.component.toString().indexOf('class') === -1 ? route.component() : route.component;
+        matchedRoute.component.toString().indexOf('class') === -1 ? matchedRoute.component() : matchedRoute.component;
 
       const ctx: any = {
         move: this.move.bind(this),
@@ -78,14 +71,13 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       search = tmp[1];
     }
     if (window.location.pathname !== pathname || window.location.search.replace('?', '') !== search) {
-      const result: ITransitionEvent | null = router.matchRoute(pathname);
-      if (result !== null) {
-        const route: IRoute = result.route;
-        window.document.title = route.title;
-        window.history.pushState(null, route.title, path);
+      const matchedRoute: IMatchedRoute | null = router.matchRoute(pathname);
+      if (matchedRoute !== null) {
+        window.document.title = matchedRoute.title;
+        window.history.pushState(null, matchedRoute.title, path);
         this.setState({ path });
         if (this.props.onTransition) {
-          this.props.onTransition(result);
+          this.props.onTransition(matchedRoute);
         }
       }
     }

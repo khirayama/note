@@ -17,6 +17,10 @@ export interface IRoute {
   component: any;
 }
 
+export interface IMatchedRoute extends IRoute {
+  params: { [key: string]: string } | null;
+}
+
 export function parse(str: string): (IToken | string)[] {
   const tokens: (IToken | string)[] = [];
   let index: number = 0;
@@ -132,12 +136,12 @@ export class Router {
     return this.routes.map((route: IRoute) => route.path);
   }
 
-  public matchRoute(path: string): { route: IRoute; params: { [key: string]: string } } | null {
+  public matchRoute(path: string): IMatchedRoute | null {
     for (const route of this.routes) {
       const { regexp, keys } = pathToRegexp(route.path || '');
       const { matches, params } = exec(regexp, keys, path);
       if (matches) {
-        return { route, params };
+        return { ...route, params };
       }
     }
 

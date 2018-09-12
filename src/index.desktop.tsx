@@ -4,8 +4,8 @@ import * as ReactDOM from 'react-dom';
 
 import { IAction } from 'action-creators/action-creators';
 import { reducers } from 'reducers/reducers';
-import { ITransitionEvent, Navigator } from 'router/Navigator';
-import { Router } from 'router/Router';
+import { Navigator } from 'router/Navigator';
+import { IMatchedRoute, Router } from 'router/Router';
 import { Tracker } from 'router/Tracker';
 import { routes } from 'routes/routes.desktop';
 import { initialState, IState } from 'state/state';
@@ -18,7 +18,7 @@ const tracker: Tracker = new Tracker(router);
 
 tracker.send();
 
-function handleTransition(result: ITransitionEvent): void {
+function handleTransition(matchedRoute: IMatchedRoute): void {
   tracker.send();
 }
 
@@ -29,7 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (applicationMainElement !== null) {
     const path: string = window.location.pathname;
     ReactDOM.render(
-      <Navigator props={{ store }} router={router} onTransition={handleTransition} path={path} />,
+      <Navigator props={{ store }} router={router} path={path} onTransition={handleTransition} />,
       applicationMainElement,
     );
   }
