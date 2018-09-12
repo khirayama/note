@@ -7,7 +7,7 @@ import { Link } from 'router/Link';
 import { context } from 'router/Navigator';
 import { IState } from 'state/state';
 
-export class HomeMobilePage extends Container<{}, IState> {
+export class SubMobilePage extends Container<{}, IState> {
   private move: any;
 
   constructor(props: IContainerProps) {
@@ -29,10 +29,10 @@ export class HomeMobilePage extends Container<{}, IState> {
 
   public render(): JSX.Element {
     return (
-      <section className="Page HomeMobilePage">
+      <section className="Page SubMobilePage">
         <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
-        <div>Hello HomeMobilePage</div>
-        <Link to="/sub">to Sub</Link>
+        <div>Hello SubMobilePage</div>
+        <Link to="/">to Home</Link>
       </section>
     );
   }

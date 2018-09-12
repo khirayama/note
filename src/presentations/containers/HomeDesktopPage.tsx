@@ -31,7 +31,8 @@ export class HomeDesktopPage extends Container<{}, IState> {
     return (
       <section className="Page HomeDesktopPage">
         <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
-        <div>Hello Component</div>
+        <div>Hello HomeDesktopPage</div>
+        <Link to="/sub">to Sub</Link>
       </section>
     );
   }
