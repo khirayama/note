@@ -9,6 +9,7 @@ interface INavigatorProps {
   props?: any;
   router: Router;
   path: string;
+  onMount?(matchedRoute: IMatchedRoute): any;
   onTransition?(matchedRoute: IMatchedRoute): any;
 }
 
@@ -36,6 +37,15 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
     }
   }
 
+  public componentDidMount(): void {
+    const { router } = this.props;
+    const { path } = this.state;
+    const matchedRoute: IMatchedRoute | null = router.matchRoute(path);
+    if (matchedRoute !== null && this.props.onMount) {
+      this.props.onMount(matchedRoute);
+    }
+  }
+
   public render(): JSX.Element | null {
     const { props, router } = this.props;
     const { path } = this.state;
@@ -51,7 +61,9 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       const component: string | React.ComponentClass | React.StatelessComponent =
         matchedRoute.component.toString().indexOf('class') === -1 ? matchedRoute.component() : matchedRoute.component;
 
-      const ctx: any = {
+      const ctx: {
+        move(path: string): void;
+      } = {
         move: this.move.bind(this),
       };
 
