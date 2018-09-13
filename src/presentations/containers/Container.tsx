@@ -15,7 +15,8 @@ export class Container<P, S> extends React.Component<P & IContainerProps, S & IS
 
   protected dispatch: IDispatch;
 
-  protected actions: object = {};
+  // tslint:disable-next-line:no-any
+  protected actions: any = {};
 
   constructor(props: P & IContainerProps) {
     super(props);
