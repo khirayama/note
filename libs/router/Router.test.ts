@@ -66,3 +66,23 @@ describe('tokensToRegexp', () => {
     assert.deepEqual(actual, /^\/path\/([^\/]+?)\/to\/([^\/]+?)(?:\/(?=$))?$/i);
   });
 });
+
+describe('pathToRegexp', () => {
+  it('/path', () => {
+    const { regexp, keys } = pathToRegexp('/path');
+    assert.deepEqual(regexp, /^\/path(?:\/(?=$))?$/i);
+    assert.deepEqual(keys, []);
+  });
+
+  it('/path/:id', () => {
+    const { regexp, keys } = pathToRegexp('/path/:id');
+    assert.deepEqual(regexp, /^\/path\/([^\/]+?)(?:\/(?=$))?$/i);
+    assert.deepEqual(keys, [{ name: 'id', pattern: '[^/]+?' }]);
+  });
+
+  it('/path/:id/to/:id', () => {
+    const { regexp, keys } = pathToRegexp('/path/:id/to/:id');
+    assert.deepEqual(regexp, /^\/path\/([^\/]+?)\/to\/([^\/]+?)(?:\/(?=$))?$/i);
+    assert.deepEqual(keys, [{ name: 'id', pattern: '[^/]+?' }, { name: 'id', pattern: '[^/]+?' }]);
+  });
+});
