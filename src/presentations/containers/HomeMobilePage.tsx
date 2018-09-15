@@ -17,8 +17,6 @@ export class HomeMobilePage extends Container<{}, IState> {
   constructor(props: IContainerProps) {
     super(props);
 
-    const id: string = props.params.id;
-
     this.state = { ...this.getState() };
 
     this.actions = {
