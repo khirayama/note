@@ -8,6 +8,7 @@ import { Store } from 'Store';
 export interface IContainerProps {
   store: Store<IState, IAction>;
   params: { [key: string]: string };
+  query: { [key: string]: null | string | number | boolean };
 }
 
 export class Container<P, S> extends React.Component<P & IContainerProps, S & IState> {

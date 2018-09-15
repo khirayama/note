@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const applicationMainElement: HTMLElement | null = window.document.querySelector('.Application--Main');
   if (applicationMainElement !== null) {
-    const path: string = window.location.pathname;
+    const path: string = window.location.href.replace(`${window.location.protocol}//${window.location.host}`, '');
     ReactDOM.render(
       <Navigator
         props={{ store }}
