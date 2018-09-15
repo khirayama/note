@@ -1,6 +1,7 @@
 // tslint:disable:no-any
 import * as React from 'react';
 
+import { IQuery, queryString } from 'router/queryString';
 import { IMatchedRoute, IRoute, Router } from 'router/Router';
 
 export const context: any = React.createContext(null);
@@ -51,13 +52,17 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
     const { path } = this.state;
 
     let pathname: string = path;
+    let search: string = '';
     if (pathname.indexOf('?') !== -1) {
-      pathname = pathname.split('?')[0];
+      const tmp: string[] = pathname.split('?');
+      pathname = tmp[0];
+      search = tmp[1];
     }
 
     const matchedRoute: IMatchedRoute | null = router.matchRoute(pathname);
     if (matchedRoute !== null) {
       const params: { [key: string]: string } = matchedRoute.params || {};
+      const query: IQuery = queryString.parse(search);
       const component: string | React.ComponentClass | React.StatelessComponent =
         matchedRoute.component.toString().indexOf('class') === -1 ? matchedRoute.component() : matchedRoute.component;
 
@@ -67,7 +72,9 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
         move: this.move.bind(this),
       };
 
-      return <context.Provider value={ctx}>{React.createElement(component, { ...props, params })}</context.Provider>;
+      return (
+        <context.Provider value={ctx}>{React.createElement(component, { ...props, params, query })}</context.Provider>
+      );
     }
 
     return null;
