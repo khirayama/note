@@ -1,8 +1,8 @@
 // tslint:disable:no-any
 import * as serveStatic from 'serve-static';
 
-import { Compression } from 'middleware/serve-static-compression/Compression';
-import { Compressions } from 'middleware/serve-static-compression/Compressions';
+import { Compression } from 'serve-static-compression/Compression';
+import { Compressions } from 'serve-static-compression/Compressions';
 
 const mime: any = serveStatic.mime;
 

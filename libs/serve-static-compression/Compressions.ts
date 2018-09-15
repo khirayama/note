@@ -1,7 +1,7 @@
 // tslint:disable:no-any
 import * as fs from 'fs';
 
-import { Compression } from 'middleware/serve-static-compression/Compression';
+import { Compression } from 'serve-static-compression/Compression';
 
 export class Compressions {
   public data: Compression[] = [];
