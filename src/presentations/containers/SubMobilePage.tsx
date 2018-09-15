@@ -38,7 +38,7 @@ export class SubMobilePage extends Container<{}, IState> {
     return (
       <section className="Page SubMobilePage">
         <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
-        <div>Sub</div>
+        <div>Sub(Mobile)</div>
         <div>{this.state.count}</div>
         <span onClick={this.onClickIncrementButton} role="button">
           INCREMENT

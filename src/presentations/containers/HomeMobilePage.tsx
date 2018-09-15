@@ -38,7 +38,7 @@ export class HomeMobilePage extends Container<{}, IState> {
     return (
       <section className="Page HomeMobilePage">
         <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
-        <div>Home</div>
+        <div>Home(Mobile)</div>
         <div>{this.state.count}</div>
         <span onClick={this.onClickIncrementButton} role="button">
           INCREMENT
