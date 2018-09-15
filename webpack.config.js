@@ -10,7 +10,7 @@ module.exports = (env, argv) => {
     },
     output: {
       filename: 'bundle.[name].js',
-      path: __dirname + '/dist/public',
+      path: __dirname + '/dist/src/public',
     },
     optimization: {
       minimize: (argv.mode === 'production') ? true : false,

@@ -8,8 +8,8 @@ import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 import * as useragent from 'useragent';
 
-import { serveStaticCompression } from 'middleware/serve-static-compression/serveStaticCompression';
-import { logger } from 'utils/logger';
+import { logger } from 'logger';
+import { serveStaticCompression } from 'serve-static-compression/serveStaticCompression';
 
 interface IHash {
   filePath: string;

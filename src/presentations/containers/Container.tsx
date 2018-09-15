@@ -1,9 +1,9 @@
 import * as deepEqual from 'deep-equal';
 import * as React from 'react';
 
-import { IAction, IDispatch } from 'action-creators/action-creators';
+import { IAction, IDispatch } from 'action-creators/actionCreators';
 import { IState } from 'state/state';
-import { Store } from 'store/Store';
+import { Store } from 'Store';
 
 export interface IContainerProps {
   store: Store<IState, IAction>;

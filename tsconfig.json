@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
+    "rootDirs": [
+      "src",
+      "libs"
+    ],
+    "paths": {
+      "*": ["src/*", "libs/*"]
+    },
     "allowJs": false,
     "jsx": "react",
     "sourceMap": true,
@@ -14,5 +21,6 @@
     "alwaysStrict": true,
     "module": "commonjs",
     "target": "es2015"
-  }
+  },
+  "exclude": ["node_modules"]
 }

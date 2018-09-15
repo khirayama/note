@@ -2,14 +2,14 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { IAction } from 'action-creators/actionCreators';
+import { logger } from 'logger';
 import { reducers } from 'reducers/reducers';
 import { Navigator } from 'router/Navigator';
 import { IMatchedRoute, Router } from 'router/Router';
 import { routes } from 'routes/routes.mobile';
 import { initialState, IState } from 'state/state';
-import { Store } from 'store/Store';
-import { logger } from 'utils/logger';
-import { IEventOptions, IExceptionOptions, IPageViewOptions, Tracker } from 'utils/Tracker';
+import { Store } from 'Store';
+import { IEventOptions, IExceptionOptions, IPageViewOptions, Tracker } from 'Tracker';
 
 declare global {
   // tslint:disable-next-line:interface-name

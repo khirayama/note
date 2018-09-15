@@ -1,4 +1,4 @@
-import { IAction } from 'action-creators/action-creators';
+import { IAction } from 'action-creators/actionCreators';
 import { actionTypes } from 'constants/actionTypes';
 import { IState } from 'state/state';
 
