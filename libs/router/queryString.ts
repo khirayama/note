@@ -1,4 +1,4 @@
-type IQueryValue = null|string|number|boolean;
+type IQueryValue = null | string | number | boolean;
 
 export interface IQuery {
   [key: string]: IQueryValue;
@@ -14,17 +14,21 @@ export const queryString: {
     if (q[0] === '?' || q[0] === '#') {
       normalizedQueryString = q.slice(1, q.length);
     }
+
     const keyValueStrings: string[] = normalizedQueryString.split('&');
+
     for (const keyValueString of keyValueStrings) {
       const keyValue: string[] = keyValueString.split('=');
       const key: string = keyValue[0];
       let value: string = keyValue[1];
       try {
         value = JSON.parse(value);
-      } catch(err) {
-        value = value
+      } catch (err) {
+        value = value;
       }
-      query[key] = value;
+      if (key) {
+        query[key] = value;
+      }
     }
 
     return query;
