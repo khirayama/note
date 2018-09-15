@@ -93,18 +93,27 @@ export function pathToRegexp(path: string): { regexp: RegExp; keys: { name: stri
   };
 }
 
-export function getParams(keys: { name: string }[], matches: RegExpExecArray | null): { [key: string]: string } {
-  const params: { [key: string]: string } = {};
+export function getParams(keys: { name: string }[], matches: RegExpExecArray | null): { [key: string]: any } {
+  const params: { [key: string]: any } = {};
 
   if (matches) {
     keys.forEach((key: { name: string }, index: number) => {
-      params[key.name] = matches[index + 1];
+      let value: any = matches[index + 1];
+      try {
+        value = JSON.parse(value);
+      } catch (e) {
+        value = value;
+      }
+      params[key.name] = value;
     });
   }
 
   return params;
 }
 
+// Now, `exec` doesn't allow same naming keys.
+// OK: /path/:id/to/:id2
+// NG: /path/:id/to/:id
 export function exec(
   regexp: RegExp,
   keys: { name: string }[],
