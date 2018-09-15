@@ -6,7 +6,7 @@ const PATH_REGEXP: RegExp = new RegExp(
   'g',
 );
 
-interface IToken {
+export interface IToken {
   name: string;
   pattern: string;
 }
@@ -39,10 +39,7 @@ export function parse(str: string): (IToken | string)[] {
     }
     path = '';
 
-    const token: {
-      name: string;
-      pattern: string;
-    } = {
+    const token: IToken = {
       name: res[3],
       pattern: '[^/]+?',
     };
