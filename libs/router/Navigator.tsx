@@ -14,22 +14,33 @@ interface INavigatorProps {
   onTransition?(matchedRoute: IMatchedRoute): any;
 }
 
-export class Navigator extends React.Component<INavigatorProps, { path: string }> {
+interface INavigatorState {
+  path: string;
+}
+
+export class Navigator extends React.Component<INavigatorProps, INavigatorState> {
   constructor(props: INavigatorProps) {
     super(props);
 
     this.state = {
       path: props.path,
     };
+    const depth: number = window.history.state ? window.history.state.depth || 0 : 0;
+    window.history.replaceState({ depth }, window.document.title, window.location.href);
 
     if (typeof window === 'object' && window.history && window.history.pushState) {
-      window.addEventListener('popstate', () => {
+      window.addEventListener('popstate', (event: any) => {
         const { router } = this.props;
         const path: string = window.location.pathname;
         const matchedRoute: IMatchedRoute | null = router.matchRoute(path);
         if (matchedRoute !== null) {
           window.document.title = matchedRoute.title;
           this.setState({ path });
+          window.history.replaceState(
+            { depth: window.history.state.depth },
+            window.document.title,
+            window.location.href,
+          );
           if (this.props.onTransition) {
             this.props.onTransition(matchedRoute);
           }
@@ -99,7 +110,7 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
       const matchedRoute: IMatchedRoute | null = router.matchRoute(pathname);
       if (matchedRoute !== null) {
         window.document.title = matchedRoute.title;
-        window.history.pushState(null, matchedRoute.title, path);
+        window.history.pushState({ depth: window.history.state.depth + 1 }, matchedRoute.title, path);
         this.setState({ path });
         if (this.props.onTransition) {
           this.props.onTransition(matchedRoute);

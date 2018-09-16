@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { decreaseCount, increaseCount } from 'action-creators/actionCreators';
 import { Container, IContainerProps } from 'presentations/containers/Container';
+import { Back } from 'router/Back';
 import { Link } from 'router/Link';
 import { context } from 'router/Navigator';
 import { IState } from 'state/state';
@@ -38,13 +39,15 @@ export class HomeMobilePage extends Container<{}, IState> {
         <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         <div>Home(Mobile)</div>
         <div>{this.state.count}</div>
-        <span onClick={this.onClickIncrementButton} role="button">
+        <div onClick={this.onClickIncrementButton} role="button">
           INCREMENT
-        </span>
-        <span onClick={this.onClickDecrementButton} role="button">
+        </div>
+        <div onClick={this.onClickDecrementButton} role="button">
           DECREMENT
-        </span>
-        <Link to="/sub">to Sub</Link>
+        </div>
+        <div>
+          <Link to="/sub">to Sub</Link>
+        </div>
       </section>
     );
   }
