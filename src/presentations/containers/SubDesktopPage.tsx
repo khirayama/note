@@ -3,13 +3,10 @@ import * as React from 'react';
 
 import { decreaseCount, increaseCount } from 'action-creators/actionCreators';
 import { Container, IContainerProps } from 'presentations/containers/Container';
-import { Link } from 'router/Link';
-import { context } from 'router/Navigator';
+import { Back } from 'router/Back';
 import { IState } from 'state/state';
 
 export class SubDesktopPage extends Container<{}, IState> {
-  private move: any;
-
   private onClickIncrementButton: any;
 
   private onClickDecrementButton: any;
@@ -35,24 +32,19 @@ export class SubDesktopPage extends Container<{}, IState> {
   public render(): JSX.Element {
     return (
       <section className="Page SubDesktopPage">
-        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         <div>Sub(Desktop)</div>
         <div>{this.state.count}</div>
-        <span onClick={this.onClickIncrementButton} role="button">
+        <div onClick={this.onClickIncrementButton} role="button">
           INCREMENT
-        </span>
-        <span onClick={this.onClickDecrementButton} role="button">
+        </div>
+        <div onClick={this.onClickDecrementButton} role="button">
           DECREMENT
-        </span>
-        <Link to="/">to Home</Link>
+        </div>
+        <div>
+          <Back to="/">Back</Back>
+        </div>
       </section>
     );
-  }
-
-  private bindContext(ctx: any): null {
-    this.move = ctx.move;
-
-    return null;
   }
 
   private handleClickIncrementButton(): void {

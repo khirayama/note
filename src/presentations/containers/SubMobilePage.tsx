@@ -4,13 +4,9 @@ import * as React from 'react';
 import { decreaseCount, increaseCount } from 'action-creators/actionCreators';
 import { Container, IContainerProps } from 'presentations/containers/Container';
 import { Back } from 'router/Back';
-import { Link } from 'router/Link';
-import { context } from 'router/Navigator';
 import { IState } from 'state/state';
 
 export class SubMobilePage extends Container<{}, IState> {
-  private move: any;
-
   private onClickIncrementButton: any;
 
   private onClickDecrementButton: any;
@@ -36,7 +32,6 @@ export class SubMobilePage extends Container<{}, IState> {
   public render(): JSX.Element {
     return (
       <section className="Page SubMobilePage">
-        <context.Consumer>{this.bindContext.bind(this)}</context.Consumer>
         <div>Sub(Mobile)</div>
         <div>{this.state.count}</div>
         <div onClick={this.onClickIncrementButton} role="button">
@@ -50,12 +45,6 @@ export class SubMobilePage extends Container<{}, IState> {
         </div>
       </section>
     );
-  }
-
-  private bindContext(ctx: any): null {
-    this.move = ctx.move;
-
-    return null;
   }
 
   private handleClickIncrementButton(): void {
