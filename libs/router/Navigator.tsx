@@ -25,10 +25,10 @@ export class Navigator extends React.Component<INavigatorProps, INavigatorState>
     this.state = {
       path: props.path,
     };
-    const depth: number = window.history.state ? window.history.state.depth || 0 : 0;
-    window.history.replaceState({ depth }, window.document.title, window.location.href);
-
     if (typeof window === 'object' && window.history && window.history.pushState) {
+      const depth: number = window.history.state ? window.history.state.depth || 0 : 0;
+      window.history.replaceState({ depth }, window.document.title, window.location.href);
+
       window.addEventListener('popstate', (event: any) => {
         const { router } = this.props;
         const path: string = window.location.pathname;
