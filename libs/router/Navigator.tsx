@@ -2,7 +2,7 @@
 import * as React from 'react';
 
 import { IQuery, queryString } from 'router/queryString';
-import { IMatchedRoute, IRoute, Router } from 'router/Router';
+import { IMatchedRoute, Router } from 'router/Router';
 
 export const context: any = React.createContext(null);
 
@@ -63,8 +63,14 @@ export class Navigator extends React.Component<INavigatorProps, { path: string }
     if (matchedRoute !== null) {
       const params: { [key: string]: string } = matchedRoute.params || {};
       const query: IQuery = queryString.parse(search);
-      const component: string | React.ComponentClass | React.StatelessComponent =
-        matchedRoute.component.toString().indexOf('class') === -1 ? matchedRoute.component() : matchedRoute.component;
+      let component: string | React.ComponentClass | React.StatelessComponent;
+      if (typeof matchedRoute.component === 'string') {
+        component = matchedRoute.component;
+      } else if (matchedRoute.component.toString().indexOf('class') === -1) {
+        component = matchedRoute.component();
+      } else {
+        component = matchedRoute.component;
+      }
 
       const ctx: {
         move(path: string): void;

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navigator renders correctly with hello 1`] = `
+<Hello
+  params={Object {}}
+  query={Object {}}
+/>
+`;
+
+exports[`Navigator renders correctly with world 1`] = `
+<World
+  params={Object {}}
+  query={Object {}}
+/>
+`;
