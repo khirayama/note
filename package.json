@@ -30,6 +30,7 @@
     "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/!(*.html|*.png|*.webp|*.svg)' 'libs/**/!(*.html|*.png|*.webp|*.svg)'",
     "precommit": "npm run lint:fix && npm run format",
     "test": "NODE_PATH=src:libs jest",
+    "test:update": "NODE_PATH=src:libs jest -u",
     "test:watch": "NODE_PATH=src:libs jest --watch",
     "check": "npx npm-check-updates"
   },
@@ -66,6 +67,7 @@
     "postcss-nested": "4.1.0",
     "postcss-simple-vars": "5.0.1",
     "prettier": "1.14.2",
+    "react-test-renderer": "16.5.1",
     "ts-jest": "23.1.4",
     "ts-loader": "5.1.0",
     "tsconfig-paths-webpack-plugin": "3.2.0",
