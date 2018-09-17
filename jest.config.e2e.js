@@ -18,7 +18,8 @@ module.exports = {
   ],
   testPathIgnorePatterns: [
     "/node_modules",
-    "/e2e"
+    "/src",
+    "/libs"
   ],
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest"

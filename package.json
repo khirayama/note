@@ -29,9 +29,10 @@
     "lint:fix": "tslint --fix --format verbose -c tslint.json 'src/**/*.{ts,tsx}' 'libs/**/*.{ts,tsx}'",
     "format": "prettier --ignore-path .gitignore --config .prettierrc --write 'src/**/!(*.html|*.png|*.webp|*.svg)' 'libs/**/!(*.html|*.png|*.webp|*.svg)'",
     "precommit": "npm run lint:fix && npm run format",
-    "test": "NODE_PATH=src:libs jest",
-    "test:update": "NODE_PATH=src:libs jest -u",
-    "test:watch": "NODE_PATH=src:libs jest --watch",
+    "test": "NODE_PATH=src:libs jest -c jest.config.js",
+    "test:update": "NODE_PATH=src:libs jest -u -c jest.config.js",
+    "test:watch": "NODE_PATH=src:libs jest --watch -c jest.config.js",
+    "test:e2e": "NODE_PATH=src:libs jest -c jest.config.e2e.js",
     "check": "npx npm-check-updates"
   },
   "dependencies": {
