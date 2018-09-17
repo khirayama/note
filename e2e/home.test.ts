@@ -37,6 +37,16 @@ function getText(selector: string): string {
   return el === null ? '' : el.textContent || '';
 };
 
+function getPathname(): string {
+  return window.location.pathname;
+};
+
+function getHref(selector: string): string {
+  const el: HTMLAnchorElement | null = document.querySelector(selector);
+
+  return el === null ? '' : el.pathname || '';
+}
+
 let browser: puppeteer.Browser;
 
 beforeAll(async () => {
@@ -52,8 +62,10 @@ describe('Home', async () => {
   describe('Desktop', () => {
     let page: puppeteer.Page;
     const selectors: {[key: string]: string} = {
-      incrementButton: 'body > section > main > section > div:nth-child(3)',
       result: 'body > section > main > section > div:nth-child(2)',
+      incrementButton: 'body > section > main > section > div:nth-child(3)',
+      decrementButton: 'body > section > main > section > div:nth-child(4)',
+      toSubPageLink: 'body > section > main > section > div:nth-child(5) > a',
     };
 
     beforeEach(async () => {
@@ -62,18 +74,33 @@ describe('Home', async () => {
       await page.goto(url('/'));
     });
 
-    it('click increment button', async () => {
-      const title: string = await page.title();
-
+    it('screen spec', async () => {
       const incrementButtonElement: puppeteer.ElementHandle<Element> | null = await page.$(selectors.incrementButton);
-      if (incrementButtonElement) {
-        const textBefore: string = await page.evaluate(getText, selectors.result);
-        expect(textBefore).toEqual('0');
+      const decrementButtonElement: puppeteer.ElementHandle<Element> | null = await page.$(selectors.decrementButton);
+      const toSubPageLinkElement: puppeteer.ElementHandle<Element> | null = await page.$(selectors.toSubPageLink);
+
+      if (incrementButtonElement && decrementButtonElement && toSubPageLinkElement) {
+        let text: string = await page.evaluate(getText, selectors.result);
+        expect(text).toEqual('0');
 
         await incrementButtonElement.click();
 
-        const textAfter: string = await page.evaluate(getText, selectors.result);
-        expect(textAfter).toEqual('1');
+        text = await page.evaluate(getText, selectors.result);
+        expect(text).toEqual('1');
+
+        await decrementButtonElement.click();
+
+        text = await page.evaluate(getText, selectors.result);
+        expect(text).toEqual('0');
+
+        const href: string = await page.evaluate(getHref, selectors.toSubPageLink);
+
+        await toSubPageLinkElement.click();
+
+        const pathname: string = await page.evaluate(getPathname);
+        expect(pathname).toEqual(href);
+      } else {
+        throw new Error('Not display need elements');
       }
     });
   });
