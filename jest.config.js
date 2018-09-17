@@ -9,7 +9,8 @@ module.exports = {
   moduleFileExtensions: [
     "ts",
     "tsx",
-    "js"
+    "js",
+    "json"
   ],
   testEnvironment: "node",
   testMatch: [
