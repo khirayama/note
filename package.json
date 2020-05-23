@@ -63,7 +63,7 @@
     "imagemin-pngquant": "6.0.0",
     "imagemin-webp": "4.1.0",
     "jest": "23.6.0",
-    "minimist": "1.2.0",
+    "minimist": "1.2.5",
     "node-zopfli": "2.0.2",
     "nodemon": "1.18.4",
     "postcss-cli": "6.0.0",
