@@ -4,11 +4,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import * as fastify from 'fastify';
+import * as logger from 'morgan';
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
+import rotatingFileStream from 'rotating-file-stream';
 import * as useragent from 'useragent';
 
-import { logger } from 'logger';
 import { serveStaticCompression } from 'serve-static-compression/serveStaticCompression';
 
 interface IHash {
@@ -131,9 +132,20 @@ function isMobile(ua: string): boolean {
 
 const desktopHTML: string = template(false);
 const mobileHTML: string = template(true);
-
+const logDirectory: string = path.join(__dirname, '..', './log');
+if (!fs.existsSync(logDirectory)) {
+  fs.mkdirSync(logDirectory);
+}
+const accessLogStream: any = rotatingFileStream('access.log', {
+  interval: '1d',
+  path: logDirectory,
+});
+if (process.env.NODE_ENV !== 'production') {
+  app.use(logger('combined'));
+}
 app.use('/', serveStaticCompression(path.join(__dirname, 'public')));
 app.use('/', serveStaticCompression(path.join(__dirname, 'assets')));
+app.use(logger('combined', { stream: accessLogStream }));
 app.get(
   '*',
   (req: any, res: any): void => {
@@ -146,5 +158,7 @@ app.get(
   },
 );
 
-logger.info(`Start app at ${new Date().toString()}.`);
-app.listen(APP_SERVER_PORT);
+app.listen(APP_SERVER_PORT, () => {
+  // tslint:disable-next-line:no-console
+  console.log(`Start app at ${new Date().toString()}.`);
+});
