@@ -71,7 +71,7 @@
     "postcss-nested": "4.1.0",
     "postcss-simple-vars": "5.0.1",
     "prettier": "1.14.2",
-    "puppeteer": "1.8.0",
+    "puppeteer": "5.2.1",
     "react-test-renderer": "16.5.1",
     "ts-jest": "23.1.4",
     "ts-loader": "5.1.0",
